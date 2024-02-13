@@ -98,26 +98,26 @@
             width: 100%; /* 폼 너비에 맞춤 */
             box-sizing: border-box; /* 패딩과 테두리가 너비에 포함되도록 */
         }
-        .rating {
+        .rate {
     direction: rtl; /* 별점을 오른쪽에서 왼쪽으로 표시 */
     font-size: 30px; /* 별의 크기 조정 */
     text-align: center; /* 별점을 가운데 정렬 */
     margin: 20px 0; /* 별점과 다른 요소 사이의 간격 조정 */
 }
 
-.rating input {
+.rate input {
     display: none; /* 라디오 버튼 숨기기 */
 }
 
-.rating label {
+.rate label {
     color: #ccc; /* 별의 기본 색상 */
     cursor: pointer;
     font-size: 40px;
 }
 
-.rating label:hover,
-.rating label:hover ~ label,
-.rating input:checked ~ label {
+.rate label:hover,
+.rate label:hover ~ label,
+.rate input:checked ~ label {
     color: #f5a623; /* 호버 또는 선택된 별의 색상 */
 }
 
@@ -141,13 +141,13 @@
             <textarea name="content" rows="10" placeholder="내용을 입력하세요"></textarea>
             <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(event)">
             <!-- 별점 시스템 추가 -->
-            <div class="rating">
+            <div class="rate">
                 <h3>별점</h3>
-                <input type="radio" id="star5" name="rating" value="5" /><label for="star5">★</label>
-                <input type="radio" id="star4" name="rating" value="4" /><label for="star4">★</label>
-                <input type="radio" id="star3" name="rating" value="3" /><label for="star3">★</label>
-                <input type="radio" id="star2" name="rating" value="2" /><label for="star2">★</label>
-                <input type="radio" id="star1" name="rating" value="1" /><label for="star1">★</label>
+                <input type="radio" id="star5" name="rate" value="5" /><label for="star5">★</label>
+                <input type="radio" id="star4" name="rate" value="4" /><label for="star4">★</label>
+                <input type="radio" id="star3" name="rate" value="3" /><label for="star3">★</label>
+                <input type="radio" id="star2" name="rate" value="2" /><label for="star2">★</label>
+                <input type="radio" id="star1" name="rate" value="1" /><label for="star1">★</label>
             </div>
 
             <div class="button">

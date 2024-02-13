@@ -25,6 +25,7 @@ public class Board {
         private String location;
         private String phone;
         private String rating;
+        private int rate;
         @Setter
         @Getter
         private String imagePath;

@@ -16,6 +16,7 @@ public class BoardDTO {
         private String location;
         private String phone;
         private String rating;
+        private int rate;
         private String imagePath;
         private LocalDate date;
         private String type;

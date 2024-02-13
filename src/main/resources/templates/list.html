@@ -4,24 +4,48 @@
   <meta charset="UTF-8">
   <title>맛집 정보 목록</title>
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <style>
+    * {
+        font-family: "Gowun Dodum", sans-serif;
+        font-style: normal;
+        font-size: 15px;
+    }
     .filled-star {
-        color:  #FFA500; /* 노란색 별 */
+        color: #FFA500; /* 주황색 별 */
+    }
+    .table-img {
+      width: 100px; /* 이미지 크기 조정 */
+      height: auto;
+      cursor: pointer; /* 이미지에 마우스 오버 시 커서 변경 */
+    }
+    .top-right-icons {
+      position: absolute;
+      top: 15px;
+      right: 15px;
     }
   </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="container mt-5">
+<div class="container mt-5 position-relative">
+  <div class="top-right-icons">
+    <a href="/" class="btn btn-primary"><i class="fas fa-home"></i></a>
+    <a href="/board/save" class="btn btn-secondary"><i class="fas fa-plus"></i></a>
+  </div>
   <h2 class="mb-4">맛집 정보 목록</h2>
   <table class="table table-bordered table-striped">
     <thead class="thead-dark">
     <tr>
-      <th>제목</th>
-      <th>내용</th>
+      <th>음식점 이름</th>
+      <th>후기</th>
       <th>위치</th>
-      <th>전화번호</th>
       <th>별점</th>
-      <th>음식종류</th>
+      <th>음식 종류</th>
+      <th>사진</th>
     </tr>
     </thead>
     <tbody>
@@ -29,12 +53,17 @@
       <td th:text="${board.title}"></td>
       <td th:text="${board.content}"></td>
       <td th:text="${board.location}"></td>
-      <td th:text="${board.phone}"></td>
       <td>
         <span th:each="star : ${#numbers.sequence(1, board.rate)}" class="filled-star">&#9733;</span>
       </td>
-      <td th:text="${board.foodType}"></td> <!-- 음식 종류 표시 -->
-      <!--      <td><img th:if="${board.picture}" th:src="@{'/uploads/' + ${board.picture}}" alt="Image preview" class="table-img"/></td>-->
+      <td th:text="${board.foodType}"></td>
+      <td>
+        <div th:if="${board.imagePath}">
+          <a th:href="@{${board.imagePath}}" data-lightbox="image" th:data-title="${board.title}">
+            <img th:src="@{${board.imagePath}}" alt="맛집 사진" class="table-img"/>
+          </a>
+        </div>
+      </td>
     </tr>
     </tbody>
   </table>
@@ -43,5 +72,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
 </body>
 </html>

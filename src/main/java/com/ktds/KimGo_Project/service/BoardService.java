@@ -50,6 +50,7 @@ public class BoardService {
         board.setRating(dto.getRating()); // String 타입 처리
         board.setFoodType(dto.getFoodType()); // String 타입 처리
         board.setRate(dto.getRate()); // String 타입 처리
+        board.setImagePath(dto.getImagePath()); // String 타입 처리
         // imagePath 설정은 파일 처리 로직에 따라
         return board;
     }

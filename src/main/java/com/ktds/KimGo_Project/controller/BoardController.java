@@ -13,6 +13,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+
 
 @Controller
 @RequestMapping("/board")
@@ -34,6 +43,26 @@ public class BoardController {
     public String saveBoard(@ModelAttribute BoardDTO boardDTO,
                             @RequestParam("chooseFile") MultipartFile file,
                             RedirectAttributes redirectAttributes) {
+        if (!file.isEmpty()) {
+            String uploadDir = "C:\\Users\\KTDS\\Desktop\\KimGo_Project\\src\\main\\resources\\static\\upload";
+            Path uploadPath = Paths.get(uploadDir);
+
+            try {
+                // 디렉토리가 존재하지 않으면 생성
+                if (!Files.exists(uploadPath)) {
+                    Files.createDirectories(uploadPath);
+                }
+
+                // 파일 저장
+                Path filePath = uploadPath.resolve(file.getOriginalFilename());
+                Files.copy(file.getInputStream(), filePath);
+
+                // 파일 경로 저장 (데이터베이스에 저장될 경로 설정)
+                boardDTO.setImagePath("/upload/" + file.getOriginalFilename());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         boardService.save(boardDTO, file);
         redirectAttributes.addFlashAttribute("message", "맛집 정보가 성공적으로 등록되었습니다.");
         return "redirect:/board/list";

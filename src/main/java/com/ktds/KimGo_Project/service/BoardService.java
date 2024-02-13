@@ -36,6 +36,7 @@ public class BoardService {
         dto.setRating(board.getRating());
         dto.setImagePath(board.getImagePath());
         dto.setDate(board.getDate());
+        dto.setFoodType(board.getFoodType());
         return dto;
     }
 
@@ -46,6 +47,7 @@ public class BoardService {
         board.setLocation(dto.getLocation());
         board.setPhone(dto.getPhone());
         board.setRating(dto.getRating()); // String 타입 처리
+        board.setFoodType(dto.getFoodType()); // String 타입 처리
         // imagePath 설정은 파일 처리 로직에 따라
         return board;
     }

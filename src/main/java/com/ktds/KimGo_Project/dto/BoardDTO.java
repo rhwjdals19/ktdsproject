@@ -18,6 +18,8 @@ public class BoardDTO {
         private String rating;
         private String imagePath;
         private LocalDate date;
+        private String type;
+        private String foodType;
 
 
 

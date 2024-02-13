@@ -25,8 +25,11 @@ public class Board {
         private String location;
         private String phone;
         private String rating;
+        @Setter
+        @Getter
         private String imagePath;
         private LocalDate date;
-
-        // Getters and Setters
+        private String type;
+        private String foodType;
+    // Getters and Setters
     }

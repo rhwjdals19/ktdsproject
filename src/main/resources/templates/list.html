@@ -22,7 +22,7 @@
       <th>위치</th>
       <th>전화번호</th>
       <th>별점</th>
-      <th>사진</th>
+      <th>음식종류</th>
     </tr>
     </thead>
     <tbody>
@@ -32,7 +32,8 @@
       <td th:text="${board.location}"></td>
       <td th:text="${board.phone}"></td>
       <td th:text="${board.rating}"></td>
-<!--      <td><img th:if="${board.picture}" th:src="@{'/uploads/' + ${board.picture}}" alt="Image preview" class="table-img"/></td>-->
+      <td th:text="${board.foodType}"></td> <!-- 음식 종류 표시 -->
+      <!--      <td><img th:if="${board.picture}" th:src="@{'/uploads/' + ${board.picture}}" alt="Image preview" class="table-img"/></td>-->
     </tr>
     </tbody>
   </table>

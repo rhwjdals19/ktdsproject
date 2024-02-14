@@ -4,6 +4,7 @@ import com.ktds.KimGo_Project.dto.BoardDTO;
 import com.ktds.KimGo_Project.entity.Board;
 import com.ktds.KimGo_Project.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -69,15 +70,16 @@ public class BoardController {
     }
 
     @GetMapping("/list")
-    public String listBoards(Model model, @RequestParam(value = "search", required = false) String search) {
+    public String listBoards(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
+                             @RequestParam(value = "size", defaultValue = "10") int size,
+                             @RequestParam(value = "search", required = false) String search) {
         List<BoardDTO> list = boardService.findAll();
+        Page<BoardDTO> boardPage;
 
         if (search != null && !search.trim().isEmpty()) {
-            // 검색어가 있는 경우 검색 결과를 가져옵니다.
-            list = boardService.findByKeyword(search);
+            boardPage = boardService.findPaginatedByKeyword(search, page, size);
         } else {
-            // 검색어가 없는 경우 모든 목록을 가져옵니다.
-            list = boardService.findAll();
+            boardPage = boardService.findPaginated(page, size);
         }
 
         list.sort(new Comparator<BoardDTO>() {
@@ -87,7 +89,10 @@ public class BoardController {
             }
         });
 //        model.addAttribute("boards", baordService.findAll());
-        model.addAttribute("boards", list);
+        model.addAttribute("boards", boardPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", boardPage.getTotalPages());
+        model.addAttribute("search", search);
         return "list";
     }
 }

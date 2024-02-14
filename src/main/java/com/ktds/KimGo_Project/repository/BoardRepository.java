@@ -10,9 +10,10 @@ import org.springframework.data.domain.Pageable;
 import java.util.Collection;
 import java.util.List;
 
+
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
-//    Page<Board> findAll(Pageable pageable);
+    Page<Board> findByTitleContainingIgnoreCase(String title, Pageable pageable);
     List<Board> findByTitleContainingIgnoreCase(String title);
 
 }

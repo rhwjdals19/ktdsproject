@@ -12,6 +12,9 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +31,25 @@ public class BoardService {
     public List<BoardDTO> findAll() {
         return boardRepository.findAll().stream().map(this::convertEntityToDTO).collect(Collectors.toList());
     }
+
+    public Page<BoardDTO> findPaginated(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Board> boardPage = boardRepository.findAll(pageable);
+        List<BoardDTO> dtos = boardPage.getContent().stream().map(this::convertEntityToDTO).collect(Collectors.toList());
+        return new PageImpl<>(dtos, pageable, boardPage.getTotalElements());
+    }
+    public Page<BoardDTO> findPaginatedByKeyword(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Board> boardPage = boardRepository.findByTitleContainingIgnoreCase(keyword, pageable);
+        List<BoardDTO> dtos = boardPage.getContent().stream()
+                .map(this::convertEntityToDTO)
+                .collect(Collectors.toList());
+        return new PageImpl<>(dtos, pageable, boardPage.getTotalElements());
+    }
+
+
+
+
 
 
     private BoardDTO convertEntityToDTO(Board board) {

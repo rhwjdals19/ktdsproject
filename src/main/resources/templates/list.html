@@ -79,7 +79,24 @@
     </tr>
     </tbody>
   </table>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+        <a class="page-link" th:href="@{/board/list(search=${search}, page=${currentPage - 1}, size=${size})}" tabindex="-1">이전</a>
+      </li>
+      <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
+        <a class="page-link" th:href="@{/board/list(search=${search}, page=${i}, size=${size})}" th:text="${i + 1}">1</a>
+      </li>
+      <li class="page-item" th:classappend="${currentPage + 1 == totalPages} ? 'disabled'">
+        <a class="page-link" th:href="@{/board/list(search=${search}, page=${currentPage + 1}, size=${size})}">다음</a>
+      </li>
+    </ul>
+  </nav>
 </div>
+
+
+
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>

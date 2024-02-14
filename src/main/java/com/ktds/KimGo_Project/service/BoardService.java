@@ -6,6 +6,9 @@ import com.ktds.KimGo_Project.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +28,7 @@ public class BoardService {
     public List<BoardDTO> findAll() {
         return boardRepository.findAll().stream().map(this::convertEntityToDTO).collect(Collectors.toList());
     }
+
 
     private BoardDTO convertEntityToDTO(Board board) {
         BoardDTO dto = new BoardDTO();
@@ -54,4 +58,13 @@ public class BoardService {
         // imagePath 설정은 파일 처리 로직에 따라
         return board;
     }
+
+    public List<BoardDTO> findByKeyword(String keyword) {
+        // repository의 검색 메소드를 호출하여 결과를 가져온 후 DTO로 변환
+        List<Board> boards = boardRepository.findByTitleContainingIgnoreCase(keyword);
+        return boards.stream().map(this::convertEntityToDTO).collect(Collectors.toList());
+    }
+
+
+
 }

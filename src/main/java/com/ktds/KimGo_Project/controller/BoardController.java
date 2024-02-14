@@ -69,8 +69,17 @@ public class BoardController {
     }
 
     @GetMapping("/list")
-    public String listBoards(Model model) {
+    public String listBoards(Model model, @RequestParam(value = "search", required = false) String search) {
         List<BoardDTO> list = boardService.findAll();
+
+        if (search != null && !search.trim().isEmpty()) {
+            // 검색어가 있는 경우 검색 결과를 가져옵니다.
+            list = boardService.findByKeyword(search);
+        } else {
+            // 검색어가 없는 경우 모든 목록을 가져옵니다.
+            list = boardService.findAll();
+        }
+
         list.sort(new Comparator<BoardDTO>() {
             @Override
             public int compare(BoardDTO o1, BoardDTO o2) {
